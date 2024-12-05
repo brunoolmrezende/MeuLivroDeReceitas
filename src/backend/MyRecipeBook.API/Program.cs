@@ -2,6 +2,8 @@ using MyRecipeBook.API.Filters;
 using MyRecipeBook.API.Middleware;
 using MyRecipeBook.Infrastructure;
 using MyRecipeBook.Application;
+using MyRecipeBook.Infrastructure.Extensions;
+using MyRecipeBook.Infrastructure.DataAccess.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,4 +36,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+MigrateDatabase();
+
 app.Run();
+
+void MigrateDatabase()
+{
+    var connectionString = builder.Configuration.ConnectionString();
+    
+    DatabaseMigration.Migrate(connectionString);
+}
