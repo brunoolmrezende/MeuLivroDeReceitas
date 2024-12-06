@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyRecipeBook.Communication"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyRecipeBook.Exceptions", "src\shared\MyRecipeBook.Exceptions\MyRecipeBook.Exceptions.csproj", "{39306284-9CBF-4E25-82AC-381F45966DAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators.Test", "tests\Validators.Test\Validators.Test.csproj", "{6AA0E673-99E4-4337-B401-050023F6C1B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTestUtilities", "tests\CommonTestUtilities\CommonTestUtilities.csproj", "{B16B3713-E2D2-4487-A16C-537740BCBCD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,14 @@ Global
 		{39306284-9CBF-4E25-82AC-381F45966DAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39306284-9CBF-4E25-82AC-381F45966DAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39306284-9CBF-4E25-82AC-381F45966DAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AA0E673-99E4-4337-B401-050023F6C1B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AA0E673-99E4-4337-B401-050023F6C1B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AA0E673-99E4-4337-B401-050023F6C1B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AA0E673-99E4-4337-B401-050023F6C1B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B16B3713-E2D2-4487-A16C-537740BCBCD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B16B3713-E2D2-4487-A16C-537740BCBCD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B16B3713-E2D2-4487-A16C-537740BCBCD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B16B3713-E2D2-4487-A16C-537740BCBCD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,5 +78,7 @@ Global
 		{F3EF7CD8-C4CA-4325-9BB2-3BA0CFD31132} = {1C5AD80A-4DF4-41D3-988A-A03A70C4EA9B}
 		{44152166-E06E-48E7-BD3D-4C658EA0B53C} = {B5FE63FE-AD58-435F-9A57-985673DCCE59}
 		{39306284-9CBF-4E25-82AC-381F45966DAA} = {B5FE63FE-AD58-435F-9A57-985673DCCE59}
+		{6AA0E673-99E4-4337-B401-050023F6C1B0} = {75E64980-F9C8-4286-8C09-2743BE276409}
+		{B16B3713-E2D2-4487-A16C-537740BCBCD2} = {75E64980-F9C8-4286-8C09-2743BE276409}
 	EndGlobalSection
 EndGlobal
