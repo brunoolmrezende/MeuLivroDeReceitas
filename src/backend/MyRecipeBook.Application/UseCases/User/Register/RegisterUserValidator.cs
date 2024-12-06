@@ -14,15 +14,25 @@ namespace MyRecipeBook.Application.UseCases.User.Register
 
             RuleFor(user => user.Email)
                 .NotEmpty()
-                .WithMessage(ResourceMessagesException.EMAIL_EMPTY)
-                .EmailAddress()
-                .WithMessage(ResourceMessagesException.INVALID_EMAIL);
+                .WithMessage(ResourceMessagesException.EMAIL_EMPTY);
+
+            When(user => string.IsNullOrWhiteSpace(user.Email) == false, () =>
+            {
+                RuleFor(user => user.Email)
+                    .EmailAddress()
+                    .WithMessage(ResourceMessagesException.INVALID_EMAIL);
+            });
 
             RuleFor(user => user.Password)
                 .NotEmpty()
-                .WithMessage(ResourceMessagesException.EMPTY_PASSWORD)
-                .MinimumLength(8)
-                .WithMessage(ResourceMessagesException.PASSWORD_LENGTH);
+                .WithMessage(ResourceMessagesException.EMPTY_PASSWORD);
+
+            When(user => string.IsNullOrWhiteSpace(user.Password) == false, () =>
+            {
+                RuleFor(user => user.Password)
+                    .MinimumLength(8)
+                    .WithMessage(ResourceMessagesException.PASSWORD_LENGTH);
+            });  
         }
     }
 }
