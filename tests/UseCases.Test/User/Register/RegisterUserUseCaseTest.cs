@@ -50,7 +50,7 @@ namespace UseCases.Test.User.Register
             await act.Should().ThrowAsync<ErrorOnValidationException>()
                 .Where(error => error.ErrorMessages.Count == 1 && error.ErrorMessages.Contains(ResourceMessagesException.NAME_EMPTY));
         }
-        private RegisterUserUseCase CreateUseCase(string? email = null)
+        private static RegisterUserUseCase CreateUseCase(string? email = null)
         {
             var mapper = MapperBuilder.Build();
             var passwordEncryption = PasswordEncryptionBuilder.Build();

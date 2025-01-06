@@ -16,7 +16,7 @@ namespace MyRecipeBook.Application.UseCases.User.Register
                 .NotEmpty()
                 .WithMessage(ResourceMessagesException.EMAIL_EMPTY);
 
-            When(user => string.IsNullOrWhiteSpace(user.Email) == false, () =>
+            When(user => !string.IsNullOrWhiteSpace(user.Email), () =>
             {
                 RuleFor(user => user.Email)
                     .EmailAddress()
@@ -27,7 +27,7 @@ namespace MyRecipeBook.Application.UseCases.User.Register
                 .NotEmpty()
                 .WithMessage(ResourceMessagesException.EMPTY_PASSWORD);
 
-            When(user => string.IsNullOrWhiteSpace(user.Password) == false, () =>
+            When(user => !string.IsNullOrWhiteSpace(user.Password), () =>
             {
                 RuleFor(user => user.Password)
                     .MinimumLength(8)

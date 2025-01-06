@@ -17,7 +17,7 @@ namespace MyRecipeBook.API.Middleware
 
             var cultureInfo = new CultureInfo("en");
 
-            if (string.IsNullOrWhiteSpace(requestCulture) == false 
+            if (!string.IsNullOrWhiteSpace(requestCulture)
                 && supportedLanguages.Any(x => x.Name.Equals(requestCulture))) 
             {
                 cultureInfo = new CultureInfo(requestCulture!);

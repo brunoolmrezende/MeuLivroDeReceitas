@@ -52,7 +52,7 @@ namespace MyRecipeBook.Application.UseCases.User.Register
             if (emailAlreadyRegistered)
                 result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_ALREADY_REGISTERED));
 
-            if (result.IsValid == false)
+            if (!result.IsValid)
             {
                 var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
 
