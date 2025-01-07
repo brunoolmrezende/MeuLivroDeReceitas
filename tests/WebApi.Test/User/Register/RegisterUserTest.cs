@@ -4,7 +4,6 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
 using MyRecipeBook.Exceptions;
 using WebApi.Test.InlineData;
 
@@ -12,6 +11,7 @@ namespace WebApi.Test.User.Register
 {
     public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
     {
+        private readonly string endpoint = "user";
         private readonly HttpClient _httpClient;
         public RegisterUserTest(CustomWebApplicationFactory factory) => _httpClient = factory.CreateClient();
 
@@ -20,7 +20,7 @@ namespace WebApi.Test.User.Register
         {
             var request = RequestRegisterUserJsonBuilder.Build();
 
-            var response = await _httpClient.PostAsJsonAsync("User", request);
+            var response = await _httpClient.PostAsJsonAsync(endpoint, request);
 
             response.StatusCode.Should().Be(HttpStatusCode.Created);
 
@@ -43,7 +43,7 @@ namespace WebApi.Test.User.Register
 
             _httpClient.DefaultRequestHeaders.Add("Accept-Language", culture);
 
-            var response = await _httpClient.PostAsJsonAsync("User", request);
+            var response = await _httpClient.PostAsJsonAsync(endpoint, request);
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
