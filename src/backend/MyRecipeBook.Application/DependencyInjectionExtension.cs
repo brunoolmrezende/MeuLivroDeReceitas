@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyRecipeBook.Application.Services.AutoMapper;
 using MyRecipeBook.Application.Services.Cryptography;
-using MyRecipeBook.Application.UseCases.User.Login.DoLogin;
+using MyRecipeBook.Application.UseCases.Login.DoLogin;
 using MyRecipeBook.Application.UseCases.User.Register;
 
 namespace MyRecipeBook.Application
