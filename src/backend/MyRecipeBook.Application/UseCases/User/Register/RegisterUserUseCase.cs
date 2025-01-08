@@ -24,7 +24,7 @@ namespace MyRecipeBook.Application.UseCases.User.Register
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly PasswordEncryption _passwordEncryption = passwordEncryption;
 
-        public async Task<ResponseRegisteredUser> Execute(RequestRegisterUserJson request)
+        public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
         {
             await Validate(request);
 
@@ -38,7 +38,7 @@ namespace MyRecipeBook.Application.UseCases.User.Register
 
             await _unitOfWork.Commit();
 
-            return new ResponseRegisteredUser { Name = request.Name };
+            return new ResponseRegisteredUserJson { Name = request.Name };
         }
 
         private async Task Validate(RequestRegisterUserJson request)

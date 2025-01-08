@@ -5,19 +5,19 @@ using MyRecipeBook.Communication.Responses;
 
 namespace MyRecipeBook.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class UserController() : ControllerBase
+    public class UserController() : MyRecipeBookBaseController
     {
         [HttpPost]
-        [ProducesResponseType(typeof(ResponseRegisteredUser), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register(
             [FromBody] RequestRegisterUserJson request,
             [FromServices] IRegisterUserUseCase useCase)
         {
-            var result = await useCase.Execute(request);
+            var response = await useCase.Execute(request);
 
-            return Created(string.Empty, result);
+            return Created(string.Empty, response);
         }
+            
     }
 }
