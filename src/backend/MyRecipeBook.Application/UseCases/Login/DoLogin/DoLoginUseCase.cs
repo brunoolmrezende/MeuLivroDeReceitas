@@ -12,7 +12,7 @@ namespace MyRecipeBook.Application.UseCases.Login.DoLogin
     {
         private readonly IUserReadOnlyRepository _readOnlyRepository = readOnlyRepository;
         private readonly PasswordEncryption _passwordEncryption = passwordEncryption;
-        public async Task<ResponseRegisteredUserJson> Execute(RequestLoginJson request)
+        public async Task<ResponseRegisteredUserJson> Execute(RequestDoLoginJson request)
         {
             var encryptedPassword = _passwordEncryption.Encrypt(request.Password);
 

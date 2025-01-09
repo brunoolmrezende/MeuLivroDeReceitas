@@ -11,7 +11,7 @@ namespace MyRecipeBook.API.Controllers
         [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Login(
-            [FromBody] RequestLoginJson request,
+            [FromBody] RequestDoLoginJson request,
             [FromServices] IDoLoginUseCase useCase)
         {
             var response = await useCase.Execute(request);
