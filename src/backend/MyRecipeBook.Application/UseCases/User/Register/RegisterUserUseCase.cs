@@ -5,6 +5,7 @@ using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionBase;
 
@@ -15,7 +16,8 @@ namespace MyRecipeBook.Application.UseCases.User.Register
         IUserWriteOnlyRepository writeOnlyRepository,
         IMapper mapper,
         IUnitOfWork unitOfWork,
-        PasswordEncryption passwordEncryption
+        PasswordEncryption passwordEncryption,
+        IAccessTokenGenerator accessTokenGenerator
         ) : IRegisterUserUseCase
     {
         private readonly IUserReadOnlyRepository _readOnlyRepository = readOnlyRepository;
@@ -23,6 +25,7 @@ namespace MyRecipeBook.Application.UseCases.User.Register
         private readonly IMapper _mapper = mapper;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly PasswordEncryption _passwordEncryption = passwordEncryption;
+        private readonly IAccessTokenGenerator _accessTokenGenerator = accessTokenGenerator;
 
         public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
         {
@@ -30,15 +33,21 @@ namespace MyRecipeBook.Application.UseCases.User.Register
 
             var user = _mapper.Map<Domain.Entities.User>(request);
 
-            var encryptedPassword = _passwordEncryption.Encrypt(request.Password);
-
-            user.Password = encryptedPassword;
+            user.Password = _passwordEncryption.Encrypt(request.Password);
+            user.UserIdentifier = Guid.NewGuid();
 
             await _writeOnlyRepository.Add(user);
 
             await _unitOfWork.Commit();
 
-            return new ResponseRegisteredUserJson { Name = request.Name };
+            return new ResponseRegisteredUserJson 
+            { 
+                Name = request.Name,
+                Tokens = new ResponseTokensJson
+                {
+                    AccessToken = _accessTokenGenerator.Generate(user.UserIdentifier),
+                }
+            };
         }
 
         private async Task Validate(RequestRegisterUserJson request)
