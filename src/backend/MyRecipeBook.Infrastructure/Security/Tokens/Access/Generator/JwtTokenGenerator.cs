@@ -6,7 +6,7 @@ using MyRecipeBook.Domain.Security.Tokens;
 
 namespace MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator
 {
-    public class JwtTokenGenerator : IAccessTokenGenerator
+    public class JwtTokenGenerator : JwtTokenHandler, IAccessTokenGenerator
     {
         private readonly string _signingKey;
         private readonly uint _expirationTimeMinutes;
@@ -28,7 +28,7 @@ namespace MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(_expirationTimeMinutes),
-                SigningCredentials = new SigningCredentials(SecurityeKey(), SecurityAlgorithms.HmacSha256Signature),
+                SigningCredentials = new SigningCredentials(SecurityeKey(_signingKey), SecurityAlgorithms.HmacSha256Signature),
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -36,13 +36,6 @@ namespace MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(securityToken);
-        }
-
-        private SymmetricSecurityKey SecurityeKey()
-        {
-            var bytes = Encoding.UTF8.GetBytes(_signingKey);
-
-            return new SymmetricSecurityKey(bytes);
         }
     }
 }
