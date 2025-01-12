@@ -6,7 +6,6 @@ using MyRecipeBook.Communication.Responses;
 
 namespace MyRecipeBook.API.Controllers
 {
-    [AuthenticatedUser]
     public class LoginController : MyRecipeBookBaseController
     {
         [HttpPost]
