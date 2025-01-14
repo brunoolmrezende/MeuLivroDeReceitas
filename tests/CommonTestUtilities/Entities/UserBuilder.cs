@@ -15,8 +15,9 @@ namespace CommonTestUtilities.Entities
             var user = new Faker<User>()
                 .RuleFor(user => user.Id, () => 1)
                 .RuleFor(user => user.Name, (f) => f.Person.FirstName)
+                .RuleFor(user => user.UserIdentifier, _ => Guid.NewGuid())
                 .RuleFor(user => user.Email, (f, user) => f.Internet.Email(user.Name))
-                .RuleFor(user => user.Password, (f) => passwordEncryption.Encrypt(password));
+                .RuleFor(user => user.Password, _ => passwordEncryption.Encrypt(password));
 
             return (user, password);
         }
