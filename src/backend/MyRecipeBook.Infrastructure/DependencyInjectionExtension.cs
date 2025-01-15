@@ -47,6 +47,7 @@ namespace MyRecipeBook.Infrastructure
         {
             services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
             services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+            services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }

@@ -6,6 +6,8 @@ using MyRecipeBook.Application.Services.Cryptography;
 using MyRecipeBook.Application.UseCases.Login.DoLogin;
 using MyRecipeBook.Application.UseCases.User.Profile;
 using MyRecipeBook.Application.UseCases.User.Register;
+using MyRecipeBook.Application.UseCases.User.Update;
+using MyRecipeBook.Domain.Repositories.User;
 
 namespace MyRecipeBook.Application
 {
@@ -23,6 +25,7 @@ namespace MyRecipeBook.Application
             services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
             services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
             services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
+            services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
         }
 
         private static void AddAutoMapper(this IServiceCollection services)
