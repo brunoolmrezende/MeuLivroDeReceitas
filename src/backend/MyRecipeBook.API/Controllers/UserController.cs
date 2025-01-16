@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using MyRecipeBook.API.Attributes;
+using MyRecipeBook.Application.UseCases.User.Change_Password;
 using MyRecipeBook.Application.UseCases.User.Profile;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Application.UseCases.User.Update;
@@ -45,6 +46,18 @@ namespace MyRecipeBook.API.Controllers
 
             return NoContent();
         }
-            
+
+        [HttpPut("change-password")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+        [AuthenticatedUser]
+        public async Task<IActionResult> ChangePassword(
+            [FromBody] RequestChangePasswordJson request,
+            [FromServices] IChangePasswordUseCase useCase)
+        {
+            await useCase.Execute(request);
+
+            return NoContent();
+        }
     }
 }
