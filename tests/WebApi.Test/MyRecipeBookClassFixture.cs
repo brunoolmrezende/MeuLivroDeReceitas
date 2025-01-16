@@ -24,6 +24,14 @@ namespace WebApi.Test
             return await _httpClient.GetAsync(endpoint);
         }
 
+        protected async Task<HttpResponseMessage> DoPut(string endpoint, object request, string token = "", string culture = "en")
+        {
+            ChangeRequestCulture(culture);
+            AuthorizeRequest(token);
+
+            return await _httpClient.PutAsJsonAsync(endpoint, request);
+        }
+
         private void ChangeRequestCulture(string culture)
         {
             if (_httpClient.DefaultRequestHeaders.Contains("Accept-Language"))

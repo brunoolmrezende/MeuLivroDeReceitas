@@ -1,5 +1,4 @@
 ﻿using MyRecipeBook.Communication.Requests;
-using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
 using MyRecipeBook.Domain.Services.LoggedUser;
