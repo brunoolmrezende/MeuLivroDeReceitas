@@ -14,7 +14,7 @@ namespace MyRecipeBook.Application.SharedValidators
         {
             if (string.IsNullOrWhiteSpace(password))
             {
-                context.MessageFormatter.AppendArgument("ErrorMessage", ResourceMessagesException.NAME_EMPTY);
+                context.MessageFormatter.AppendArgument("ErrorMessage", ResourceMessagesException.EMPTY_PASSWORD);
 
                 return false;
             }
