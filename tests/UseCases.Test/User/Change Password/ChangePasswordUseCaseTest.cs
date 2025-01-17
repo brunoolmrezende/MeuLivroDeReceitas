@@ -78,7 +78,7 @@ namespace UseCases.Test.User.Change_Password
             user.Password.Should().Be(passwordEncrypter.Encrypt(password));
         }
 
-        private ChangePasswordUseCase CreateUseCase(MyRecipeBook.Domain.Entities.User user)
+        private static ChangePasswordUseCase CreateUseCase(MyRecipeBook.Domain.Entities.User user)
         {
             var loggedUser = LoggedUserBuilder.Build(user);
             var updateOnlyRepository = new UserUpdateOnlyRepositoryBuilder().GetById(user).Build();
