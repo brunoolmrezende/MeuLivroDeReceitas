@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AT_LEAST_ONE_INSTRUCTION" xml:space="preserve">
+    <value>Certifique-se de que haja pelo menos uma instrução fornecida para a receita.</value>
+  </data>
   <data name="COOKING_TIME_NOT_SUPPORTED" xml:space="preserve">
     <value>O valor de tempo de cozinha fornecido não é suportado.</value>
   </data>
   <data name="DIFFICULTY_LEVEL_NOT_SUPPORTED" xml:space="preserve">
     <value>O nível de dificuldade especificado para a receita não é suportado.</value>
+  </data>
+  <data name="DISH_TYPE_NOT_SUPPORTED" xml:space="preserve">
+    <value>O tipo de prato escolhido não é suportado.</value>
   </data>
   <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
     <value>O e-mail já está registrado.</value>
@@ -132,6 +138,15 @@
   <data name="EMPTY_PASSWORD" xml:space="preserve">
     <value>A senha não pode ser vazia.</value>
   </data>
+  <data name="INGREDIENT_EMPTY" xml:space="preserve">
+    <value>O ingrediente foi deixado em branco. Forneça um valor válido.</value>
+  </data>
+  <data name="INSTRUCTION_EMPTY" xml:space="preserve">
+    <value>A instrução foi deixada em branco. Forneça uma instrução válida.</value>
+  </data>
+  <data name="INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS" xml:space="preserve">
+    <value>A instrução excede o limite máximo de 2.000 caracteres.</value>
+  </data>
   <data name="INVALID_EMAIL" xml:space="preserve">
     <value>O e-mail deve ser válido.</value>
   </data>
@@ -140,6 +155,9 @@
   </data>
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>O nome não pode ser vazio.</value>
+  </data>
+  <data name="NON_NEGATIVE_INSTRUCTION_STEP" xml:space="preserve">
+    <value>Use um valor não negativo para a etapa da instrução.</value>
   </data>
   <data name="NO_TOKEN" xml:space="preserve">
     <value>Token não fornecido.</value>
@@ -152,6 +170,9 @@
   </data>
   <data name="RECIPE_TITLE_EMPTY" xml:space="preserve">
     <value>O título da receita foi deixado em branco. Por favor, forneça um título válido.</value>
+  </data>
+  <data name="TWO_OR_MORE_INSTRUCTIONS_SAME_ORDER" xml:space="preserve">
+    <value>Ao adicionar instruções, certifique-se de que cada uma tenha um número de etapa exclusivo. Duas ou mais instruções não podem ter o mesmo passo.</value>
   </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erro desconhecido.</value>
