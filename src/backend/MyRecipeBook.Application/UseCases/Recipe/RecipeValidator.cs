@@ -15,6 +15,8 @@ namespace MyRecipeBook.Application.UseCases.Recipe
 
             RuleFor(recipe => recipe.CookingTime).IsInEnum().WithMessage(ResourceMessagesException.COOKING_TIME_NOT_SUPPORTED);
 
+            RuleFor(recipe => recipe.Ingredients.Count()).GreaterThan(0).WithMessage(ResourceMessagesException.AT_LEAST_ONE_INGREDIENT);
+
             RuleFor(recipe => recipe.Instructions.Count()).GreaterThan(0).WithMessage(ResourceMessagesException.AT_LEAST_ONE_INSTRUCTION);
 
             RuleForEach(recipe => recipe.Ingredients).NotEmpty().WithMessage(ResourceMessagesException.INGREDIENT_EMPTY);
