@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using System.Net;
-using System.Net.Http.Json;
 using System.Text.Json;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
@@ -34,7 +33,7 @@ namespace WebApi.Test.Login
                 Password = _password
             };
 
-            var response = await DoPost(_endpoint, request);
+            var response = await DoPost(endpoint: _endpoint, request: request);
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -52,7 +51,7 @@ namespace WebApi.Test.Login
         {
             var request = RequestDoLoginJsonBuilder.Build();
 
-            var response = await DoPost(_endpoint, request, culture);
+            var response = await DoPost(endpoint: _endpoint, request: request, culture: culture);
 
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
 
