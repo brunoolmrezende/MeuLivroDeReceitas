@@ -29,9 +29,9 @@ namespace MyRecipeBook.API.Controllers
         [AuthenticatedUser]
         public async Task<IActionResult> GetUserProfile([FromServices] IGetUserProfileUseCase useCase)
         {
-            var result = await useCase.Execute();
+            var response = await useCase.Execute();
 
-            return Ok(result);
+            return Ok(response);
         }
 
         [HttpPut]

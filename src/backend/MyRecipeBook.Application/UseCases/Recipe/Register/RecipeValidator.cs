@@ -1,9 +1,8 @@
 ﻿using FluentValidation;
 using MyRecipeBook.Communication.Requests;
-using MyRecipeBook.Domain.Entities;
 using MyRecipeBook.Exceptions;
 
-namespace MyRecipeBook.Application.UseCases.Recipe
+namespace MyRecipeBook.Application.UseCases.Recipe.Register
 {
     public class RecipeValidator : AbstractValidator<RequestRecipeJson>
     {

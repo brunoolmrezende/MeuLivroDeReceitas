@@ -7,7 +7,7 @@ using MyRecipeBook.Domain.Repositories.Recipe;
 using MyRecipeBook.Domain.Services.LoggedUser;
 using MyRecipeBook.Exceptions.ExceptionBase;
 
-namespace MyRecipeBook.Application.UseCases.Recipe
+namespace MyRecipeBook.Application.UseCases.Recipe.Register
 {
     public class RegisterRecipeUseCase : IRegisterRecipeUseCase
     {
@@ -41,13 +41,13 @@ namespace MyRecipeBook.Application.UseCases.Recipe
             for (var i = 0; i < instructions.Count; i++)
                 instructions.ElementAt(i).Step = i + 1;
 
-            recipe.Instructions = _mapper.Map<IList<Domain.Entities.Instruction>>(instructions);
+            recipe.Instructions = _mapper.Map<IList<Instruction>>(instructions);
 
             await _recipeWriteOnlyRepository.Add(recipe);
 
             await _unitOfWork.Commit();
-            
-            return _mapper.Map<ResponseRegisteredRecipeJson>(recipe); 
+
+            return _mapper.Map<ResponseRegisteredRecipeJson>(recipe);
         }
 
         private void Validate(RequestRecipeJson request)
