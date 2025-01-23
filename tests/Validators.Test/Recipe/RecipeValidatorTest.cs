@@ -5,7 +5,7 @@ using MyRecipeBook.Application.UseCases.Recipe.Register;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Exceptions;
 
-namespace Validators.Test.User.Recipe
+namespace Validators.Test.Recipe
 {
     public class RecipeValidatorTest
     {
@@ -95,7 +95,7 @@ namespace Validators.Test.User.Recipe
         [Fact]
         public void Success_DishTypes_Empty()
         {
-            var request =  RequestRecipeJsonBuilder .Build();
+            var request = RequestRecipeJsonBuilder.Build();
             request.DishTypes.Clear();
 
             var validator = new RecipeValidator();
