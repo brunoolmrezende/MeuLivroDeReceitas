@@ -24,7 +24,7 @@ namespace MyRecipeBook.Application.UseCases.Recipe.Filter
             _mapper = mapper;
         }
 
-        public async Task<ResponseRecipeJson> Execute(RequestFilterRecipeJson request)
+        public async Task<ResponseRecipesJson> Execute(RequestFilterRecipeJson request)
         {
             Validate(request);
 
@@ -40,7 +40,7 @@ namespace MyRecipeBook.Application.UseCases.Recipe.Filter
 
             var recipes = await _recipeReadOnlyRepository.Filter(loggedUser, filters);
 
-            return new ResponseRecipeJson
+            return new ResponseRecipesJson
             {
                 Recipes = _mapper.Map<List<ResponseShortRecipeJson>>(recipes)
             };

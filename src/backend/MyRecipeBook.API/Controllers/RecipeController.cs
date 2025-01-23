@@ -23,7 +23,7 @@ namespace MyRecipeBook.API.Controllers
         }
 
         [HttpPost("filter")]
-        [ProducesResponseType(typeof(ResponseRecipeJson), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseRecipesJson), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> Filter(
             [FromBody] RequestFilterRecipeJson request,
