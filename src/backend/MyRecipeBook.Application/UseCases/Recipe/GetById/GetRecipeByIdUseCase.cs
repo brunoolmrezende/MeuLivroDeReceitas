@@ -7,7 +7,7 @@ using MyRecipeBook.Exceptions.ExceptionBase;
 
 namespace MyRecipeBook.Application.UseCases.Recipe.GetById
 {
-    internal class GetRecipeByIdUseCase : IGetRecipeByIdUseCase
+    public class GetRecipeByIdUseCase : IGetRecipeByIdUseCase
     {
         private readonly ILoggedUser _loggedUser;
         private readonly IRecipeReadOnlyRepository _recipeReadOnlyRepository;
