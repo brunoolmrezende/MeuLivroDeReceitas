@@ -171,6 +171,9 @@
   <data name="PASSWORD_LENGTH" xml:space="preserve">
     <value>A senha deve ter pelo menos 8 caracteres.</value>
   </data>
+  <data name="RECIPE_NOT_FOUND" xml:space="preserve">
+    <value>A receita não pode ser encontrada.</value>
+  </data>
   <data name="RECIPE_TITLE_EMPTY" xml:space="preserve">
     <value>O título da receita foi deixado em branco. Por favor, forneça um título válido.</value>
   </data>

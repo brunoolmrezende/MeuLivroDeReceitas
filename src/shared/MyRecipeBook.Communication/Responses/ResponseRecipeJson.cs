@@ -1,7 +1,15 @@
-﻿namespace MyRecipeBook.Communication.Responses
+﻿using MyRecipeBook.Communication.Enums;
+
+namespace MyRecipeBook.Communication.Responses
 {
     public class ResponseRecipeJson
     {
-        public IList<ResponseShortRecipeJson> Recipes { get; set; } = [];
+        public string Id { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
+        public CookingTime? CookingTime { get; set; }
+        public Difficulty? Difficulty { get; set; }
+        public IList<ResponseIngredientsJson> Ingredients { get; set; } = [];
+        public IList<ResponseInstructionJson> Instructions { get; set; } = [];
+        public IList<DishType> DishTypes { get; set; } = [];
     }
 }

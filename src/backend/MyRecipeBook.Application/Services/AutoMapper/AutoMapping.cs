@@ -40,11 +40,23 @@ namespace MyRecipeBook.Application.Services.AutoMapper
         private void DomainToResponse()
         {
             CreateMap<User, ResponseUserProfileJson>();
+
             CreateMap<Recipe, ResponseRegisteredRecipeJson>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(source => _idEncoder.Encode(source.Id)));
+
             CreateMap<Recipe, ResponseShortRecipeJson>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(source => _idEncoder.Encode(source.Id)))
                 .ForMember(dest => dest.AmountIngredients, opt => opt.MapFrom(source => source.Ingredients.Count()));
+
+            CreateMap<Recipe, ResponseRecipeJson>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(source => _idEncoder.Encode(source.Id)))
+                .ForMember(dest => dest.DishTypes, opt => opt.MapFrom(source => source.DishTypes.Select(d => d.Type)));
+
+            CreateMap<Instruction, ResponseInstructionJson>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(source => _idEncoder.Encode(source.Id)));
+
+            CreateMap<Ingredient, ResponseIngredientsJson>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(source => _idEncoder.Encode(source.Id)));
         }
     }
 }
