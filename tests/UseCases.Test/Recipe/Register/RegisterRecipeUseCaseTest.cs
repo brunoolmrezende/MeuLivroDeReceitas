@@ -41,8 +41,8 @@ namespace UseCases.Test.Recipe.Register
             Func<Task> act = () => useCase.Execute(request);
 
             await act.Should().ThrowAsync<ErrorOnValidationException>()
-                .Where(e => e.ErrorMessages.Count == 1 &&
-                    e.ErrorMessages.Contains(ResourceMessagesException.RECIPE_TITLE_EMPTY));
+                .Where(e => e.GetErrorMessages().Count == 1 &&
+                    e.GetErrorMessages().Contains(ResourceMessagesException.RECIPE_TITLE_EMPTY));
         }
 
         private static RegisterRecipeUseCase CreateUseCase(MyRecipeBook.Domain.Entities.User user)

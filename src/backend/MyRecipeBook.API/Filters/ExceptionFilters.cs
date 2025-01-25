@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionBase;
+using System;
 
 namespace MyRecipeBook.API.Filters
 {
@@ -11,30 +11,16 @@ namespace MyRecipeBook.API.Filters
     {
         public void OnException(ExceptionContext context)
         {
-            if (context.Exception is MyRecipeBookException)
-                HandleProjectExceptions(context);
+            if (context.Exception is MyRecipeBookException myRecipeBookException)
+                HandleProjectExceptions(context, myRecipeBookException);
             else
                 ThrowUnknownException(context);   
         }
 
-        private static void HandleProjectExceptions(ExceptionContext context)
+        private static void HandleProjectExceptions(ExceptionContext context, MyRecipeBookException myRecipeBookException)
         {
-            if (context.Exception is ErrorOnValidationException exception)
-            {
-                context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                context.Result = new BadRequestObjectResult(new ResponseErrorJson(exception!.ErrorMessages));
-            }
-
-            else if (context.Exception is InvalidLoginException)
-            {
-                context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(context.Exception.Message));
-            }
-            else if (context.Exception is NotFoundException)
-            {
-                context.HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
-                context.Result = new NotFoundObjectResult(new ResponseErrorJson(context.Exception.Message));
-            }
+            context.HttpContext.Response.StatusCode = (int)myRecipeBookException.GetHttpStatusCode();
+            context.Result = new ObjectResult(new ResponseErrorJson(myRecipeBookException.GetErrorMessages()));
         }
 
         private static void ThrowUnknownException(ExceptionContext context)
