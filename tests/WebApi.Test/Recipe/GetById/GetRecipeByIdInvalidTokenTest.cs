@@ -8,12 +8,12 @@ using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Recipe.GetById
 {
-    public class GetRecipeByIdInvalidToken : MyRecipeBookClassFixture
+    public class GetRecipeByIdInvalidTokenTest : MyRecipeBookClassFixture
     {
         private readonly string _endpoint = "recipe";
         private readonly string _recipeId;
 
-        public GetRecipeByIdInvalidToken(CustomWebApplicationFactory factory) : base(factory)
+        public GetRecipeByIdInvalidTokenTest(CustomWebApplicationFactory factory) : base(factory)
         {
             _recipeId = factory.GetRecipeId();
         }
