@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using MyRecipeBook.Domain.Dtos;
 using MyRecipeBook.Domain.Entities;
 using MyRecipeBook.Domain.Repositories.Recipe;
 
 namespace MyRecipeBook.Infrastructure.DataAccess.Repositories
 {
-    public class RecipeRepository(MyRecipeBookDbContext dbContext) : IRecipeWriteOnlyRepository, IRecipeReadOnlyRepository
+    public class RecipeRepository(MyRecipeBookDbContext dbContext) : IRecipeWriteOnlyRepository, IRecipeReadOnlyRepository, IRecipeUpdateOnlyRepository
     {
         private readonly MyRecipeBookDbContext _dbContext = dbContext;
 
@@ -51,15 +52,28 @@ namespace MyRecipeBook.Infrastructure.DataAccess.Repositories
             return await query.ToListAsync();
         }
 
-        public async Task<Recipe?> GetById(User user, long recipeId)
+        async Task<Recipe?> IRecipeReadOnlyRepository.GetById(User user, long recipeId)
         {
-            return await _dbContext
+            return await GetFullRecipe()
+                .AsNoTracking()
+                .FirstOrDefaultAsync(recipe => recipe.Active && recipe.UserId == user.Id && recipe.Id == recipeId);
+        }
+
+        async Task<Recipe?> IRecipeUpdateOnlyRepository.GetById(User user, long recipeId)
+        {
+            return await GetFullRecipe()
+                .FirstOrDefaultAsync(recipe => recipe.Active && recipe.UserId == user.Id && recipe.Id == recipeId);
+        }
+
+        public void Update(Recipe recipe) => _dbContext.Recipes.Update(recipe);
+
+        private IIncludableQueryable<Recipe, IList<DishType>> GetFullRecipe()
+        {
+            return _dbContext
                  .Recipes
-                 .AsNoTracking()
                  .Include(recipe => recipe.Ingredients)
                  .Include(recipe => recipe.Instructions)
-                 .Include(recipe => recipe.DishTypes)
-                 .FirstOrDefaultAsync(recipe => recipe.Active && recipe.UserId == user.Id && recipe.Id == recipeId);
+                 .Include(recipe => recipe.DishTypes);
         }
     }
 }
