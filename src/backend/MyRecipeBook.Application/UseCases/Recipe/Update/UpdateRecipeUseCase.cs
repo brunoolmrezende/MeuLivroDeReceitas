@@ -45,7 +45,7 @@ namespace MyRecipeBook.Application.UseCases.Recipe.Update
 
             var instructions = request.Instructions.OrderBy(i => i.Step).ToList();
             for (int index = 0; index < instructions.Count; index++)
-                instructions.ElementAt(index).Step = index + 1;
+                instructions[index].Step = index + 1;
 
             recipe.Instructions = _mapper.Map<IList<Domain.Entities.Instruction>>(instructions);
 
@@ -54,7 +54,7 @@ namespace MyRecipeBook.Application.UseCases.Recipe.Update
             await _unitOfWork.Commit();
         }
 
-        private void Validate(RequestRecipeJson request)
+        private static void Validate(RequestRecipeJson request)
         {
             var validator = new RecipeValidator();
 

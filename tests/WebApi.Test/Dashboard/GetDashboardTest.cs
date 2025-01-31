@@ -27,7 +27,7 @@ namespace WebApi.Test.Dashboard
 
             var responseData = await JsonDocument.ParseAsync(responseBody);
 
-            responseData.RootElement.GetProperty("reciper").GetArrayLength().Should().BeGreaterThan(0);
+            responseData.RootElement.GetProperty("recipes").GetArrayLength().Should().BeGreaterThan(0);
         }
     }
 }

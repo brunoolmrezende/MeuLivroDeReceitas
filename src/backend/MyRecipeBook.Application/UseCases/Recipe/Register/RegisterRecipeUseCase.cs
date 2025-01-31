@@ -38,8 +38,8 @@ namespace MyRecipeBook.Application.UseCases.Recipe.Register
             recipe.UserId = loggedUser.Id;
 
             var instructions = request.Instructions.OrderBy(i => i.Step).ToList();
-            for (var i = 0; i < instructions.Count; i++)
-                instructions.ElementAt(i).Step = i + 1;
+            for (var index = 0; index < instructions.Count; index++)
+                instructions[index].Step = index + 1;
 
             recipe.Instructions = _mapper.Map<IList<Instruction>>(instructions);
 
@@ -50,7 +50,7 @@ namespace MyRecipeBook.Application.UseCases.Recipe.Register
             return _mapper.Map<ResponseRegisteredRecipeJson>(recipe);
         }
 
-        private void Validate(RequestRecipeJson request)
+        private static void Validate(RequestRecipeJson request)
         {
             var validator = new RecipeValidator();
 

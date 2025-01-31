@@ -57,7 +57,7 @@ namespace UseCases.Test.Recipe.Update
                     errors.GetErrorMessages().Contains(ResourceMessagesException.RECIPE_TITLE_EMPTY));
         }
 
-        private UpdateRecipeUseCase CreateUseCase(
+        private static UpdateRecipeUseCase CreateUseCase(
             MyRecipeBook.Domain.Entities.User user, 
             MyRecipeBook.Domain.Entities.Recipe? recipe = null)
         {
