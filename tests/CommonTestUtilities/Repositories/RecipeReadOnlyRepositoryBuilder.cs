@@ -26,6 +26,14 @@ namespace CommonTestUtilities.Repositories
             return this;
         }
 
+        public RecipeReadOnlyRepositoryBuilder GetForDashboard(User user, IList<Recipe> recipes)
+        {
+            if (recipes.Any())
+                _repository.Setup(respository => respository.GetForDashboard(user)).ReturnsAsync(recipes);
+
+            return this;
+        }
+
         public IRecipeReadOnlyRepository Build() => _repository.Object;
     }
 }
