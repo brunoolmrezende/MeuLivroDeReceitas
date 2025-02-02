@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using FluentMigrator.Runner;
+﻿using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +8,7 @@ using MyRecipeBook.Domain.Repositories.User;
 using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Domain.Services.LoggedUser;
+using MyRecipeBook.Domain.Services.OpenAI;
 using MyRecipeBook.Infrastructure.DataAccess;
 using MyRecipeBook.Infrastructure.DataAccess.Repositories;
 using MyRecipeBook.Infrastructure.Extensions;
@@ -16,6 +16,9 @@ using MyRecipeBook.Infrastructure.Security.Cryptography;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Validator;
 using MyRecipeBook.Infrastructure.Services.LoggedUser;
+using MyRecipeBook.Infrastructure.Services.OpenAI;
+using OpenAI_API;
+using System.Reflection;
 
 namespace MyRecipeBook.Infrastructure
 {
@@ -27,6 +30,7 @@ namespace MyRecipeBook.Infrastructure
             AddRepositories(services);
             AddLoggedUsers(services);
             AddTokens(services, configuration);
+            AddOpenAI(services, configuration);
 
             if (configuration.IsUnitTestEnviroment())
                 return;
@@ -87,6 +91,18 @@ namespace MyRecipeBook.Infrastructure
         {
             var additionalKey = configuration.GetValue<string>("Settings:Password:AdditionalKey");
             services.AddScoped<IPasswordEncryption>(option => new Sha512Encrypter(additionalKey!));
+        }
+
+        private static void AddOpenAI(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddScoped<IGenerateRecipeAI, ChatGPTService>();
+
+            var key = configuration.GetValue<string>("Settings:OpenAI:ApiKey");
+
+            var authentication= new APIAuthentication(key);
+
+            services.AddScoped<IOpenAIAPI>(option => new OpenAIAPI(authentication));
+
         }
     }
 }
