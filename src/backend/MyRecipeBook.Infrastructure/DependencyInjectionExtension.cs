@@ -1,4 +1,5 @@
-﻿using FluentMigrator.Runner;
+﻿using Azure.Storage.Blobs;
+using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,7 @@ using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Domain.Services.LoggedUser;
 using MyRecipeBook.Domain.Services.OpenAI;
+using MyRecipeBook.Domain.Services.Storage;
 using MyRecipeBook.Infrastructure.DataAccess;
 using MyRecipeBook.Infrastructure.DataAccess.Repositories;
 using MyRecipeBook.Infrastructure.Extensions;
@@ -17,6 +19,7 @@ using MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Validator;
 using MyRecipeBook.Infrastructure.Services.LoggedUser;
 using MyRecipeBook.Infrastructure.Services.OpenAI;
+using MyRecipeBook.Infrastructure.Services.Storage;
 using OpenAI_API;
 using System.Reflection;
 
@@ -31,6 +34,7 @@ namespace MyRecipeBook.Infrastructure
             AddLoggedUsers(services);
             AddTokens(services, configuration);
             AddOpenAI(services, configuration);
+            AddAzureStorage(services, configuration);
 
             if (configuration.IsUnitTestEnviroment())
                 return;
@@ -102,7 +106,13 @@ namespace MyRecipeBook.Infrastructure
             var authentication= new APIAuthentication(key);
 
             services.AddScoped<IOpenAIAPI>(option => new OpenAIAPI(authentication));
+        }
 
+        private static void AddAzureStorage(this IServiceCollection services, IConfiguration configuration)
+        {
+            var connectionString = configuration.GetValue<string>("Settings:BlobStorage:Azure");
+
+            services.AddScoped<IBlobStorageService>(c => new AzureStorageService(new BlobServiceClient(connectionString)));
         }
     }
 }
