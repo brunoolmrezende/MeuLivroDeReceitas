@@ -174,6 +174,9 @@
   <data name="NO_TOKEN" xml:space="preserve">
     <value>Token não fornecido.</value>
   </data>
+  <data name="ONLY_IMAGES_ACCEPTED" xml:space="preserve">
+    <value>Somente imagens (PNG, JPG, JPEG) são aceitas.</value>
+  </data>
   <data name="PASSWORD_DIFFERENT_CURRENT_PASSWORD" xml:space="preserve">
     <value>A senha deve coincidir com a senha atual para prosseguir com a alteração.</value>
   </data>

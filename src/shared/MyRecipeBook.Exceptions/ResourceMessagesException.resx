@@ -174,6 +174,9 @@
   <data name="NO_TOKEN" xml:space="preserve">
     <value>Token not provided.</value>
   </data>
+  <data name="ONLY_IMAGES_ACCEPTED" xml:space="preserve">
+    <value>Only images (PNG, JPG, JPEG) are accepted.</value>
+  </data>
   <data name="PASSWORD_DIFFERENT_CURRENT_PASSWORD" xml:space="preserve">
     <value>The password must match the current password to proceed with the change.</value>
   </data>
