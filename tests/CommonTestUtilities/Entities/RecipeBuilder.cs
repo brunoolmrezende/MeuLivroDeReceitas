@@ -32,6 +32,7 @@ namespace CommonTestUtilities.Entities
                 .RuleFor(r => r.Title, (f) => f.Lorem.Word())
                 .RuleFor(r => r.CookingTime, (f) => f.PickRandom<MyRecipeBook.Domain.Enums.CookingTime>())
                 .RuleFor(r => r.Difficulty, (f) => f.PickRandom<MyRecipeBook.Domain.Enums.Difficulty>())
+                .RuleFor(r => r.ImageIdentifier, _ => $"{Guid.NewGuid()}.png")
                 .RuleFor(r => r.Ingredients, (f) => f.Make(1, () => new Ingredient
                 {
                     Id = 1,

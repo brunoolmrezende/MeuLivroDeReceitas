@@ -15,7 +15,19 @@ namespace MyRecipeBook.Infrastructure.Services.Storage
             _blobServiceClient = blobServiceClient;
         }
 
-        public async Task<string> GetImageUrl(User user, string filename)
+        public async Task Delete(User user, string filename)
+        {
+            var containerName = user.UserIdentifier.ToString();
+
+            var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+            var exist = await containerClient.ExistsAsync();
+            if (exist.Value)
+            {
+                await containerClient.DeleteBlobIfExistsAsync(filename);
+            }
+        }
+
+        public async Task<string> GetFileUrl(User user, string filename)
         {
             var containerName = user.UserIdentifier.ToString();
 

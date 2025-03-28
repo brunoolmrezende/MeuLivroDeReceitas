@@ -1,4 +1,5 @@
 ﻿using CommonTestUtilities.AutoMapper;
+using CommonTestUtilities.BlobStorage;
 using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Repositories;
@@ -56,8 +57,9 @@ namespace UseCases.Test.Recipe.Filter
             var loggedUser = LoggedUserBuilder.Build(user);
             var mapper = MapperBuilder.Build();
             var recipeReadOnlyRepository = new RecipeReadOnlyRepositoryBuilder().Filter(user, recipes).Build();
+            var blobStorage = new BlobStorageServiceBuilder().GetFileUrl(user, recipes).Build();
 
-            return new FilterRecipeUseCase(loggedUser, recipeReadOnlyRepository, mapper);
+            return new FilterRecipeUseCase(loggedUser, recipeReadOnlyRepository, mapper, blobStorage);
         }
     }
 }

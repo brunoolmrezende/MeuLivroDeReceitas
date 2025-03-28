@@ -1,4 +1,5 @@
-﻿using CommonTestUtilities.Entities;
+﻿using CommonTestUtilities.BlobStorage;
+using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Repositories;
 using FluentAssertions;
@@ -44,8 +45,9 @@ namespace UseCases.Test.Recipe.Delete
             var recipeWriteOnlyRepository = RecipeWriteOnlyRepositoryBuilder.Build();
             var recipeReadOnlyRepository = new RecipeReadOnlyRepositoryBuilder().GetById(user, recipe).Build();
             var unitOfWork = UnitOfWorkBuilder.Build();
+            var blobStorage = new BlobStorageServiceBuilder().Build();
 
-            return new DeleteRecipeUseCase(loggedUser, recipeWriteOnlyRepository, recipeReadOnlyRepository, unitOfWork);
+            return new DeleteRecipeUseCase(loggedUser, recipeWriteOnlyRepository, recipeReadOnlyRepository, unitOfWork, blobStorage);
         }
     }
 }

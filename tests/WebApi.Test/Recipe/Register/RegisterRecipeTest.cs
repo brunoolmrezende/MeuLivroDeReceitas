@@ -23,11 +23,11 @@ namespace WebApi.Test.Recipe.Register
         [Fact]
         public async Task Success()
         {
-            var request = RequestRecipeJsonBuilder.Build();
+            var request = RequestRegisterRecipeFormDataBuilder.Build();
 
             var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-            var response = await DoPost(_endpoint, request, token);
+            var response = await DoPostFormData(_endpoint, request, token);
 
             response.StatusCode.Should().Be(HttpStatusCode.Created);
 
@@ -43,12 +43,12 @@ namespace WebApi.Test.Recipe.Register
         [ClassData(typeof(CultureInlineDataTest))]
         public async Task Error_Title_Empty(string culture)
         {
-            var request = RequestRecipeJsonBuilder.Build();
+            var request = RequestRegisterRecipeFormDataBuilder.Build();
             request.Title = string.Empty;
 
             var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-            var response = await DoPost(_endpoint, request, token, culture);
+            var response = await DoPostFormData(_endpoint, request, token, culture);
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 

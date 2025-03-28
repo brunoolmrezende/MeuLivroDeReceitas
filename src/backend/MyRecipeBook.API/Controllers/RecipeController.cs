@@ -20,7 +20,7 @@ namespace MyRecipeBook.API.Controllers
         [ProducesResponseType(typeof(ResponseRegisteredRecipeJson), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register(
-            [FromBody] RequestRecipeJson request,
+            [FromForm] RequestRegisterRecipeFormData request,
             [FromServices] IRegisterRecipeUseCase useCase)
         {
             var result = await useCase.Execute(request);

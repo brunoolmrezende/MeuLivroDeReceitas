@@ -1,4 +1,5 @@
-﻿using CommonTestUtilities.Entities;
+﻿using CommonTestUtilities.BlobStorage;
+using CommonTestUtilities.Entities;
 using CommonTestUtilities.IdEncrypter;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -24,6 +25,9 @@ namespace WebApi.Test
                         services.Remove(descriptor);
 
                     var provider = services.AddEntityFrameworkInMemoryDatabase().BuildServiceProvider();
+
+                    var blobStorage = new BlobStorageServiceBuilder().Build();
+                    services.AddScoped(option => blobStorage);
 
                     services.AddDbContext<MyRecipeBookDbContext>(options =>
                     {
