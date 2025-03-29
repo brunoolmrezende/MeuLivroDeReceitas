@@ -117,5 +117,23 @@ namespace MyRecipeBook.Infrastructure
                 services.AddScoped<IBlobStorageService>(c => new AzureStorageService(new BlobServiceClient(connectionString)));
             }
         }
+
+        private static void AddQueue(IServiceCollection services, IConfiguration configuration)
+        {
+            var connectionString = configuration.GetValue<string>("Settings:ServiceBus:DeleteUserAccount");
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                return;
+            }
+
+            var client = new ServiceBusClient(connectionString, new ServiceBusClientOptions
+            {
+                TransportType = ServiceBusTransportType.AmqpWebSockets,
+            });
+
+            var deleteQueue = new DeleteUserQueue(client.CreateSender("user"));
+            services.AddScoped<IDeleteUserQueue>(options =>  deleteQueue);
     }
+}
 }
