@@ -14,11 +14,6 @@ namespace CommonTestUtilities.Repositories
             _readOnlyRepository.Setup(repository => repository.ExistActiveUserWithEmail(email)).ReturnsAsync(true);
         }
 
-        public void GetByEmailAndPassword(User user)
-        {
-            _readOnlyRepository.Setup(repository => repository.GetByEmailAndPassword(user.Email, user.Password)).ReturnsAsync(user);
-        }
-
         public void GetByEmail(User user)
         {
             _readOnlyRepository.Setup(repository => repository.GetByEmail(user.Email)).ReturnsAsync(user);

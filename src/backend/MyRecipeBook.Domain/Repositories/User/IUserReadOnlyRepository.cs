@@ -4,7 +4,6 @@
     {
         Task<bool> ExistActiveUserWithEmail(string email);
         Task<bool> ExistActiveUserWithUserIdentifier(Guid userIdentifier);
-        Task<Entities.User?> GetByEmailAndPassword(string email, string password);
         Task<Entities.User?> GetByEmail(string email);
     }
 }
