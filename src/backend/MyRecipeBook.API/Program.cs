@@ -76,6 +76,8 @@ if (!builder.Configuration.IsUnitTestEnviroment())
     AddGoogleAuthentication();
 }
 
+AddGoogleAuthentication();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
