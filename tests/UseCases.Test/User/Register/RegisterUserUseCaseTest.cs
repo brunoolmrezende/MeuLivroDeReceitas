@@ -61,11 +61,21 @@ namespace UseCases.Test.User.Register
             var readOnlyRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
             var unitOfWork = UnitOfWorkBuilder.Build();
             var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
+            var refreshTokenGeneraor = RefreshTokenGeneratorBuilder.Build();
+            var tokenRepository = new TokenRepositoryBuilder().Build();
 
             if (string.IsNullOrEmpty(email) == false)
                 readOnlyRepositoryBuilder.ExistActiveUserWithEmail(email);
 
-            return new RegisterUserUseCase(readOnlyRepositoryBuilder.Build(), writeOnlyRepository, mapper, unitOfWork, passwordEncryption, accessTokenGenerator);
+            return new RegisterUserUseCase(
+                readOnlyRepositoryBuilder.Build(), 
+                writeOnlyRepository, 
+                mapper, 
+                unitOfWork, 
+                passwordEncryption, 
+                accessTokenGenerator,
+                refreshTokenGeneraor,
+                tokenRepository);
         }
 
     }

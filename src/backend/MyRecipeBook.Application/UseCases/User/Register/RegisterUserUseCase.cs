@@ -3,6 +3,7 @@ using FluentValidation.Results;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Repositories;
+using MyRecipeBook.Domain.Repositories.Token;
 using MyRecipeBook.Domain.Repositories.User;
 using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
@@ -17,7 +18,9 @@ namespace MyRecipeBook.Application.UseCases.User.Register
         IMapper mapper,
         IUnitOfWork unitOfWork,
         IPasswordEncryption passwordEncryption,
-        IAccessTokenGenerator accessTokenGenerator
+        IAccessTokenGenerator accessTokenGenerator,
+        IRefreshTokenGenerator refreshTokenGenerator,
+        ITokenRepository tokenRepository
         ) : IRegisterUserUseCase
     {
         private readonly IUserReadOnlyRepository _readOnlyRepository = readOnlyRepository;
@@ -26,6 +29,8 @@ namespace MyRecipeBook.Application.UseCases.User.Register
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IPasswordEncryption _passwordEncryption = passwordEncryption;
         private readonly IAccessTokenGenerator _accessTokenGenerator = accessTokenGenerator;
+        private readonly IRefreshTokenGenerator _refreshTokenGenerator = refreshTokenGenerator;
+        private readonly ITokenRepository _tokenRepository = tokenRepository;
 
         public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
         {
@@ -40,14 +45,32 @@ namespace MyRecipeBook.Application.UseCases.User.Register
 
             await _unitOfWork.Commit();
 
+            var refreshToken = await CreateAndSaveRefreshToken(user);
+
             return new ResponseRegisteredUserJson 
             { 
                 Name = request.Name,
                 Tokens = new ResponseTokensJson
                 {
                     AccessToken = _accessTokenGenerator.Generate(user.UserIdentifier),
+                    RefreshToken = refreshToken
                 }
             };
+        }
+
+        private async Task<string> CreateAndSaveRefreshToken(Domain.Entities.User user)
+        {
+            var refreshoken = new Domain.Entities.RefreshToken
+            {
+                UserId = user.Id,
+                Value = _refreshTokenGenerator.Generate()
+            };
+
+            await _tokenRepository.SaveNewRefreshToken(refreshoken);
+
+            await _unitOfWork.Commit();
+
+            return refreshoken.Value;
         }
 
         private async Task Validate(RequestRegisterUserJson request)
