@@ -12,6 +12,7 @@ using MyRecipeBook.Application.UseCases.Recipe.GetById;
 using MyRecipeBook.Application.UseCases.Recipe.Image;
 using MyRecipeBook.Application.UseCases.Recipe.Register;
 using MyRecipeBook.Application.UseCases.Recipe.Update;
+using MyRecipeBook.Application.UseCases.Token.RefreshToken;
 using MyRecipeBook.Application.UseCases.User.Change_Password;
 using MyRecipeBook.Application.UseCases.User.Delete.Delete;
 using MyRecipeBook.Application.UseCases.User.Delete.Request;
@@ -70,6 +71,7 @@ namespace MyRecipeBook.Application
             services.AddScoped<IDeleteUserAccountUseCase, DeleteUserAccountUseCase>();
             services.AddScoped<IRequestDeleteUserUseCase, RequestDeleteUserUseCase>();
             services.AddScoped<IExternalLoginUseCase, ExternalLoginUseCase>();
+            services.AddScoped<IUseRefreshTokenUseCase, UseRefreshTokenUseCase>();
         }
     }
 }

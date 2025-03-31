@@ -20,6 +20,7 @@ using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBook.Infrastructure.Security.Cryptography;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Validator;
+using MyRecipeBook.Infrastructure.Security.Tokens.Refresh;
 using MyRecipeBook.Infrastructure.Services.LoggedUser;
 using MyRecipeBook.Infrastructure.Services.OpenAI;
 using MyRecipeBook.Infrastructure.Services.ServiceBus;
@@ -94,6 +95,8 @@ namespace MyRecipeBook.Infrastructure
 
             services.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(signingKey!, expirationTimeMinutes));
             services.AddScoped<IAccessTokenValidator>(option => new JwtTokenValidator(signingKey!));
+
+            services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
         }
 
         private static void AddLoggedUsers(this IServiceCollection services) => services.AddScoped<ILoggedUser, LoggedUser>();

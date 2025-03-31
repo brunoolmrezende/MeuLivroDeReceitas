@@ -144,6 +144,9 @@
   <data name="EMPTY_PASSWORD" xml:space="preserve">
     <value>The password cannot be empty.</value>
   </data>
+  <data name="EXPIRED_SESSION" xml:space="preserve">
+    <value>Your session has expired. Please log in again to continue.</value>
+  </data>
   <data name="INGREDIENT_EMPTY" xml:space="preserve">
     <value>The ingredient is left empty, please provide a valid value.</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="INVALID_NUMBER_INGREDIENTS" xml:space="preserve">
     <value>Invalid number of ingredients. The list must contain between 1 and 5 ingredients.</value>
+  </data>
+  <data name="INVALID_SESSION" xml:space="preserve">
+    <value>We couldn't find a valid session. Please log in to access this feature.</value>
   </data>
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>The name cannot be empty.</value>
