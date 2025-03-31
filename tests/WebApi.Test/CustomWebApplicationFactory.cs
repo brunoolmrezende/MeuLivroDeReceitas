@@ -14,6 +14,7 @@ namespace WebApi.Test
     {
         private MyRecipeBook.Domain.Entities.User _user = default!;
         private MyRecipeBook.Domain.Entities.Recipe _recipe = default!;
+        private MyRecipeBook.Domain.Entities.RefreshToken _refreshToken = default!;
         private string _password = string.Empty;
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
@@ -47,6 +48,7 @@ namespace WebApi.Test
         public string GetEmail() => _user.Email;
         public string GetPassword() => _password;
         public string GetName() => _user.Name;
+        public string GetRefreshToken() => _refreshToken.Value;
         public Guid GetUserIdentifier() => _user.UserIdentifier;
         
         public string GetRecipeTitle() => _recipe.Title;
@@ -61,9 +63,12 @@ namespace WebApi.Test
 
             _recipe = RecipeBuilder.Build(_user);
 
+            _refreshToken = RefreshTokenBuilder.Build(_user);
+
             dbContext.Database.EnsureCreated();
             dbContext.Users.Add(_user);
             dbContext.Recipes.Add(_recipe);
+            dbContext.RefreshTokens.Add(_refreshToken);
             dbContext.SaveChanges();
         }
     }
